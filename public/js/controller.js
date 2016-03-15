@@ -6,7 +6,17 @@ app.controller('formCtrl', function($scope) {
 
   $scope.submitUserForm = function(formInvalid) {
     if(formInvalid){
-      swal("Oops...", "Please fill out all fields!", "error");
+      console.log($scope.userForm);
+      console.log('username: ', $scope.user.username);
+      console.log('password: ', $scope.user.password);
+      console.log('passwordCheck: ', $scope.user.passwordCheck);
+      console.log('email: ', $scope.user.email);
+      console.log('nameOnCard: ', $scope.user.nameOnCard);
+      console.log('number: ', $scope.number);
+      console.log('cvc: ', $scope.user.cvc);
+      console.log('expiry: ', $scope.user.expiry);
+      console.log('country: ', $scope.country);
+      console.log('zipCode: ', $scope.user.zipCode);
       return;
     } else {
       console.log('username: ', $scope.user.username);
@@ -24,80 +34,17 @@ app.controller('formCtrl', function($scope) {
 
 // swal("Oops...", "Something went wrong!", "error");
   $scope.passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  $scope.ccRegex = /(\d\s*){14,16}/
 
   $scope.pwCheck = function() {
-    $scope.userForm.passwordCheck.$error.noMatch = passwordCheck($scope.user.passwordCheck);
-  }
-
-  var passwordCheck = function(pwc) {
-    var pw = $scope.user.password;
-    if(pw !== pwc){
-      return true;
+      $scope.userForm.passwordCheck.$error.noMatch = passwordCheck($scope.user.passwordCheck);
     }
-  }
 
-  $scope.cardChange = function() {
-    $scope.userForm.number.$error.luhn = luhnCheck($scope.user.number);
-  }
-
-  var luhnCheck = function(sixteenDigitString) {
-    var numSum = 0;
-    var value;
-    for (var i = 0; i < 16; ++i) {
-        if (i % 2 == 0) {
-            value = 2 * sixteenDigitString[i];
-            if (value >= 10) {
-                value = (Math.floor(value / 10) + value % 10);
-            }
-        } else {
-            value = +sixteenDigitString[i];
-        }
-        numSum += value;
+    var passwordCheck = function(pwc) {
+      var pw = $scope.user.password;
+      if(pw !== pwc){
+        return true;
+      }
     }
-    return (numSum % 10 !== 0);
-}
-  //
-  // $scope.expiry = function(val){
-  //   var month, year, obj;
-  //   if(!val) return true;
-  //
-  //   obj = Common.parseExpiry(val);
-  //
-  //   month = obj.month;
-  //   year = obj.year;
-  //
-  //   var currentTime, expiry, prefix;
-  //
-  //   if (!(month && year)) {
-  //     return false;
-  //   }
-  //
-  //   if (!/^\d+$/.test(month)) {
-  //     return false;
-  //   }
-  //
-  //   if (!/^\d+$/.test(year)) {
-  //     return false;
-  //   }
-  //
-  //   if (parseInt(month, 10) > 12) {
-  //     return false;
-  //   }
-  //
-  //   if (year.length === 2) {
-  //     prefix = (new Date()).getFullYear();
-  //     prefix = prefix.toString().slice(0, 2);
-  //     year = prefix + year;
-  //   }
-  //
-  //   expiry = new Date(year, month);
-  //   currentTime = new Date();
-  //   expiry.setMonth(expiry.getMonth() - 1);
-  //   expiry.setMonth(expiry.getMonth() + 1, 1);
-  //
-  //   return expiry > currentTime;
-  // };
 
 
   $scope.countries = [

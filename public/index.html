@@ -6,8 +6,10 @@
     <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.5.0/angular-messages.js"></script>
+    <script src="./js/angular-payments.js"></script>
     <script src="./dist/sweetalert.min.js"></script>
     <script src="./js/module.js"></script>
     <script src="./js/controller.js"></script>
@@ -17,7 +19,7 @@
 <body ng-app='formApp' ng-controller='formCtrl'>
   <div class="container">
     <div class="row">
-      <div class="span4 offset3">
+      <div class="span3 offset3">
         <div class="row">
           <div class="span4">
             <h3>Shut up and take my money!</h3>
@@ -33,27 +35,27 @@
             </div>
             <div class="span4">
               <label>Reenter Password:</label>
-              <input type="password" name="passwordCheck" ng-model="user.passwordCheck" ng-change='pwCheck()' required/>
+              <input type="password" name="passwordCheck" ng-model="user.passwordCheck" ng-pattern='passwordRegex' ng-change="pwCheck()" required/>
             </div>
             <div class="span4">
               <label>Email:</label>
               <input type="email" name="email" ng-model='user.email' required/>
             </div>
-            <div class="span4">
+            <div class="span3">
               <label for="">Name on card:</label>
-              <input type="text" class="input-block-level" ng-model="user.nameOnCard" required/>
+              <input type="text" name="nameOnCard" class="input-block-level" ng-model="user.nameOnCard" required/>
             </div>
-            <div class="span4">
+            <div class="span3">
               <label for="">Card Number:</label>
-              <input type="text" class="input-block-level" name="number" ng-model="user.number" ng-change="cardChange()" required/>
+              <input type="text" name="number" class="input-block-level" ng-model="user.number" payments-validate="card" payments-format="card" payments-type-model="type" ng-class="userForm.number.$card.type" required/>
             </div>
             <div class="span1">
               <label for="">CVC:</label>
-              <input type="text" class="input-block-level" name="cvc" ng-model="user.cvc" required/>
+              <input type="text" name="cvc" class="input-block-level" ng-model="user.cvc" payments-validate="cvc" payments-format="cvc" payments-type-model="type" required/>
             </div>
-            <div class="span1">
+            <div class="span2">
               <label for="">Expires:</label>
-              <input type="text" class="input-block-level" name="expiry" ng-model="user.expiry" required/>
+              <input type="text" name="expiry" required class="input-block-level" ng-model="user.expiry" placeholder="mm/yyyy" payments-validate="expiry" payments-format="expiry"/>
             </div>
             <div class="span4">
               <label for="">Country:</label>
@@ -75,12 +77,24 @@
   </div>
 </div>
 
-<pre>{{userForm.number.$error}}</pre>
-<pre>{{userForm.password}}</pre>
-<pre>{{userForm.passwordCheck}}</pre>
+<pre>
+  {{user}}
+</pre>
+<pre>
+  number: {{userForm.number.$error}}
+</pre>
+<pre>
+  cvc: {{userForm.cvc.$error}}
+</pre>
+<pre>
+  expiry: {{userForm.expiry.$error}}
+</pre>
+<pre>
+  {{userForm}}
+</pre>
 </body>
 </html>
 
-<!-- ng-disabled='userForm.$invalid' -->
-<!-- ng-change="luhnCheck()" -->
-<!-- ng-pattern="ccRegex" -->
+<!-- payments-validate="card" payments-format="card" payments-type-model="type" ng-class="myForm.number.$card.type"
+payments-validate="cvc" payments-format="cvc" payments-type-model="type"
+payments-validate="expiry" payments-format="expiry" -->
