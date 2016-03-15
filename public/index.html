@@ -6,10 +6,8 @@
     <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
     <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.5.0/angular-messages.js"></script>
-    <script src="./js/angular-payments.js"></script>
     <script src="./dist/sweetalert.min.js"></script>
     <script src="./js/module.js"></script>
     <script src="./js/controller.js"></script>
@@ -18,61 +16,71 @@
 </head>
 <body ng-app='formApp' ng-controller='formCtrl'>
   <div class="container">
-      <div class="row">
-        <div class="span7 offset3">
-          <div class="row">
+    <div class="row">
+      <div class="span4 offset3">
+        <div class="row">
+          <div class="span4">
+            <h3>Shut up and take my money!</h3>
+          </div>
+          <form name='userForm' ng-submit='submitUserForm(userForm.$invalid)' novalidate>
             <div class="span4">
-              <h3>Shut up and take my money!</h3>
-            </div>
-            <div class="span4">
-              <form name='userForm' ng-submit='submitUserForm(userForm.$invalid)' novalidate>
-                <label>Username:</label>
-                <input type="text" name="username" ng-model='user.username' required/>
-                <label>Password:</label>
-                <input type="password" name="passWord" ng-model='user.password' ng-pattern='passwordRegex' ng-minlength="6" required />
-                <label>Reenter Password:</label>
-                <input type="password" name="passWordCheck" ng-model="user.passwordCheck" required/>
-                <label>Email:</label>
-                <input type="email" name="email" ng-model='user.email' required />
-              </div>
-              <div class="span3">
-                <label for="">Name on card:</label>
-                <input type="text" class="input-block-level" ng-model="nameOnCard" required />
-              </div>
-              <div class="span3">
-                <label for="">Card Number:</label>
-                <input type="text" class="input-block-level" ng-model="number" payments-validate="card" payments-format="card" payments-type-model="type" ng-class="userForm.number.$card.type" required />
-              </div>
-              <div class="span1">
-                <label for="">CVC:</label>
-                <input type="text" class="input-block-level" ng-model="cvc" payments-validate="cvc" payments-format="cvc" payments-type-model="type" required />
-              </div>
-              <div class="span2">
-                <label for="">Expires:</label>
-                <input type="text" class="input-block-level" ng-model="expiry"  placeholder="mm/yyyy" payments-validate="expiry" payments-format="expiry" required />
-              </div>
-              <div class="span4">
-                <label for="">Country:</label>
-                <select ng-model="country" required/>
-                <option value="">-- Select a Country --</option>
-                <option ng-repeat="country in countries" value="{{country}}" ng-model="user.country">{{country}}</option>
-              </select>
-            </div>
-            <div class="span2">
-              <label for="">Zip Code</label>
-              <input type="text" class="input-block-level" ng-model="user.zipCode" required />
+              <label>Username:</label>
+              <input type="text" name="username" ng-model='user.username' required/>
             </div>
             <div class="span4">
-              <button type="submit" class="btn btn-primary btn-large">Submit</button>
+              <label>Password:</label>
+              <input type="password" name="password" ng-model='user.password' ng-pattern='passwordRegex' ng-minlength="6" required/>
             </div>
-          </form>
-        </div>
+            <div class="span4">
+              <label>Reenter Password:</label>
+              <input type="password" name="passwordCheck" ng-model="user.passwordCheck" ng-change='pwCheck()' required/>
+            </div>
+            <div class="span4">
+              <label>Email:</label>
+              <input type="email" name="email" ng-model='user.email' required/>
+            </div>
+            <div class="span4">
+              <label for="">Name on card:</label>
+              <input type="text" class="input-block-level" ng-model="user.nameOnCard" required/>
+            </div>
+            <div class="span4">
+              <label for="">Card Number:</label>
+              <input type="text" class="input-block-level" name="number" ng-model="user.number" ng-change="cardChange()" required/>
+            </div>
+            <div class="span1">
+              <label for="">CVC:</label>
+              <input type="text" class="input-block-level" name="cvc" ng-model="user.cvc" required/>
+            </div>
+            <div class="span1">
+              <label for="">Expires:</label>
+              <input type="text" class="input-block-level" name="expiry" ng-model="user.expiry" required/>
+            </div>
+            <div class="span4">
+              <label for="">Country:</label>
+              <select ng-model="country" required/>
+              <option value="">-- Select a Country --</option>
+              <option ng-repeat="country in countries" value="{{country}}" ng-model="user.country">{{country}}</option>
+            </select>
+          </div>
+          <div class="span2">
+            <label for="">Zip Code</label>
+            <input type="text" class="input-block-level" ng-model="user.zipCode" required/>
+          </div>
+          <div class="span4">
+            <button type="submit" ng-disabled='userForm.$invalid' class="btn btn-primary btn-large">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
+
+<pre>{{userForm.number.$error}}</pre>
+<pre>{{userForm.password}}</pre>
+<pre>{{userForm.passwordCheck}}</pre>
 </body>
 </html>
 
-<!-- payments-validate="card" payments-format="card" payments-type-model="type" ng-class="myForm.number.$card.type"
-payments-validate="cvc" payments-format="cvc" payments-type-model="type"
-payments-validate="expiry" payments-format="expiry" -->
+<!-- ng-disabled='userForm.$invalid' -->
+<!-- ng-change="luhnCheck()" -->
+<!-- ng-pattern="ccRegex" -->

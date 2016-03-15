@@ -6,17 +6,7 @@ app.controller('formCtrl', function($scope) {
 
   $scope.submitUserForm = function(formInvalid) {
     if(formInvalid){
-      console.log($scope.userForm);
-      console.log('username: ', $scope.user.username);
-      console.log('password: ', $scope.user.password);
-      console.log('passwordCheck: ', $scope.user.passwordCheck);
-      console.log('email: ', $scope.user.email);
-      console.log('nameOnCard: ', $scope.user.nameOnCard);
-      console.log('number: ', $scope.number);
-      console.log('cvc: ', $scope.user.cvc);
-      console.log('expiry: ', $scope.user.expiry);
-      console.log('country: ', $scope.country);
-      console.log('zipCode: ', $scope.user.zipCode);
+      swal("Oops...", "Please fill out all fields!", "error");
       return;
     } else {
       console.log('username: ', $scope.user.username);
@@ -34,33 +24,39 @@ app.controller('formCtrl', function($scope) {
 
 // swal("Oops...", "Something went wrong!", "error");
   $scope.passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  $scope.ccRegex = /(\d\s*){14,16}/
 
-  // $scope.luhnCheck = function(num) {
-  //   var digit, digits, odd, sum, i, len;
-  //
-  //   odd = true;
-  //   sum = 0;
-  //   digits = (num + '').split('').reverse();
-  //
-  //   for (i = 0, len = digits.length; i < len; i++) {
-  //
-  //     digit = digits[i];
-  //     digit = parseInt(digit, 10);
-  //
-  //     if ((odd = !odd)) {
-  //       digit *= 2;
-  //     }
-  //
-  //     if (digit > 9) {
-  //       digit -= 9;
-  //     }
-  //
-  //     sum += digit;
-  //
-  //   }
-  //
-  //   return sum % 10 === 0;
-  // };
+  $scope.pwCheck = function() {
+    $scope.userForm.passwordCheck.$error.noMatch = passwordCheck($scope.user.passwordCheck);
+  }
+
+  var passwordCheck = function(pwc) {
+    var pw = $scope.user.password;
+    if(pw !== pwc){
+      return true;
+    }
+  }
+
+  $scope.cardChange = function() {
+    $scope.userForm.number.$error.luhn = luhnCheck($scope.user.number);
+  }
+
+  var luhnCheck = function(sixteenDigitString) {
+    var numSum = 0;
+    var value;
+    for (var i = 0; i < 16; ++i) {
+        if (i % 2 == 0) {
+            value = 2 * sixteenDigitString[i];
+            if (value >= 10) {
+                value = (Math.floor(value / 10) + value % 10);
+            }
+        } else {
+            value = +sixteenDigitString[i];
+        }
+        numSum += value;
+    }
+    return (numSum % 10 !== 0);
+}
   //
   // $scope.expiry = function(val){
   //   var month, year, obj;

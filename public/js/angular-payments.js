@@ -793,7 +793,7 @@ angular.module('angularPayments')
  */
 angular.module('angularPayments')
 
-.directive('stripeForm', ['$window', '$parse', 'Common', function($window, $parse, Common) {
+//.directive('stripeForm', ['$window', '$parse', 'Common', function($window, $parse, Common) {
 
   // directive intercepts form-submission, obtains Stripe's cardToken using stripe.js
   // and then passes that to callback provided in stripeForm, attribute.
