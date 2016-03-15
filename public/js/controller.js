@@ -6,29 +6,29 @@ app.controller('formCtrl', function($scope) {
 
   $scope.submitUserForm = function(formInvalid) {
     if(formInvalid){
-      console.log($scope.userForm);
-      console.log('username: ', $scope.user.username);
-      console.log('password: ', $scope.user.password);
-      console.log('passwordCheck: ', $scope.user.passwordCheck);
-      console.log('email: ', $scope.user.email);
-      console.log('nameOnCard: ', $scope.user.nameOnCard);
-      console.log('number: ', $scope.number);
-      console.log('cvc: ', $scope.user.cvc);
-      console.log('expiry: ', $scope.user.expiry);
-      console.log('country: ', $scope.country);
-      console.log('zipCode: ', $scope.user.zipCode);
+      // console.log($scope.userForm);
+      // console.log('username: ', $scope.user.username);
+      // console.log('password: ', $scope.user.password);
+      // console.log('passwordCheck: ', $scope.user.passwordCheck);
+      // console.log('email: ', $scope.user.email);
+      // console.log('nameOnCard: ', $scope.user.nameOnCard);
+      // console.log('number: ', $scope.number);
+      // console.log('cvc: ', $scope.user.cvc);
+      // console.log('expiry: ', $scope.user.expiry);
+      // console.log('country: ', $scope.country);
+      // console.log('zipCode: ', $scope.user.zipCode);
       return;
     } else {
-      console.log('username: ', $scope.user.username);
-      console.log('password: ', $scope.user.password);
-      console.log('passwordCheck: ', $scope.user.passwordCheck);
-      console.log('email: ', $scope.user.email);
-      console.log('nameOnCard: ', $scope.user.nameOnCard);
-      console.log('number: ', $scope.user.number);
-      console.log('cvc: ', $scope.user.cvc);
-      console.log('expiry: ', $scope.user.expiry);
-      console.log('country: ', $scope.country);
-      console.log('zipCode: ', $scope.user.zipCode);
+      // console.log('username: ', $scope.user.username);
+      // console.log('password: ', $scope.user.password);
+      // console.log('passwordCheck: ', $scope.user.passwordCheck);
+      // console.log('email: ', $scope.user.email);
+      // console.log('nameOnCard: ', $scope.user.nameOnCard);
+      // console.log('number: ', $scope.user.number);
+      // console.log('cvc: ', $scope.user.cvc);
+      // console.log('expiry: ', $scope.user.expiry);
+      // console.log('country: ', $scope.country);
+      // console.log('zipCode: ', $scope.user.zipCode);
     };
   };
 
