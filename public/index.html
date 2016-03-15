@@ -35,7 +35,7 @@
             </div>
             <div class="span4">
               <label>Reenter Password:</label>
-              <input type="password" name="passwordCheck" ng-model="user.passwordCheck" ng-pattern='passwordRegex' ng-change="pwCheck()" required/>
+              <input type="password" name="passwordCheck" ng-model="user.passwordCheck" ng-change="pwCheck()" required/>
             </div>
             <div class="span4">
               <label>Email:</label>
@@ -81,6 +81,12 @@
   {{user}}
 </pre>
 <pre>
+  password: {{userForm.password.$error}}
+</pre>
+<pre>
+  passwordCheck: {{userForm.passwordCheck.$error}}
+</pre>
+<pre>
   number: {{userForm.number.$error}}
 </pre>
 <pre>
@@ -95,6 +101,4 @@
 </body>
 </html>
 
-<!-- payments-validate="card" payments-format="card" payments-type-model="type" ng-class="myForm.number.$card.type"
-payments-validate="cvc" payments-format="cvc" payments-type-model="type"
-payments-validate="expiry" payments-format="expiry" -->
+<!-- <span ng-messages-include="messages.html"></span> -->
